@@ -1,7 +1,3 @@
-<?php
-session_start();
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,10 +9,7 @@ session_start();
 </head>
 <body>
 <?php
-	if(isset($_SESSION["login"])||isset($_SESSION["password"])){
-		header('Location: autenticacao.php');
-		exit();
-	}
+	session_start();
 ?>
 	<form action="autenticacao.php" method="post">
 		<input type="text" name="login" placeholder="Login" maxlength="12"> <br/>
