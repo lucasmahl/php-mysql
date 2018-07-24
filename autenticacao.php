@@ -23,6 +23,7 @@
 </html>
 
 <?php
+	session_start();
 	include('dbaccess.php');
 ?>
 
@@ -33,7 +34,7 @@
 	$sql = mysqli_query($conn, "SELECT login FROM acesso WHERE login = '$login' AND password =md5('$password')");
 	$row = @mysqli_num_rows($sql);
 	if ($row>0) {
-		session_start();
+//		session_start();
 		$_SESSION['login']=$_POST['login'];
 		$_SESSION['password']=$_POST['password'];
 
@@ -46,7 +47,7 @@
 		echo "<h1><center>Nome de usuário e/ou senha inválidos.</h1></center>";
 		echo "<script>console.log('Nome de usuário e/ou senha inválidos.')</script>";
 		mysqli_close($conn);
-		session_start();
+//		session_start();
 		session_destroy();
 		echo "<script>loginfailed()</script>";
 		exit();		
