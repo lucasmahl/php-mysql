@@ -1,3 +1,7 @@
+<?php
+	session_start();
+	require_once('dbaccess.php');
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,20 +26,17 @@
 </body>
 </html>
 
-<?php
-	session_start();
-	include('dbaccess.php');
-?>
+
 
 <?php  
-	$login=$_POST['login'];
+	$login_user=$_POST['login_user'];
 	$password=$_POST['password'];
 
-	$sql = mysqli_query($conn, "SELECT login FROM acesso WHERE login = '$login' AND password =md5('$password')");
+	$sql = mysqli_query($conn, "SELECT login_user FROM acesso WHERE login_user = '$login_user' AND password =md5('$password')");
 	$row = @mysqli_num_rows($sql);
 	if ($row>0) {
 //		session_start();
-		$_SESSION['login']=$_POST['login'];
+		$_SESSION['login_user']=$_POST['login_user'];
 		$_SESSION['password']=$_POST['password'];
 
 		echo "<h1><center>Você foi autenticado com sucesso!Aguarde um instante.</center></h1>";
@@ -44,13 +45,14 @@
 		header('Location: painel.php');
 		exit();
 	}else{
+		$_SESSION['nao_autenticado'] = true;
 		echo "<h1><center>Nome de usuário e/ou senha inválidos.</h1></center>";
 		echo "<script>console.log('Nome de usuário e/ou senha inválidos.')</script>";
-		mysqli_close($conn);
+		//mysqli_close($conn);
 //		session_start();
-		session_destroy();
+		//session_destroy();
 		echo "<script>loginfailed()</script>";
-		exit();		
+		//exit();		
 	}
 
 ?>

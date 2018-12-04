@@ -8,13 +8,13 @@
 </head>
 <body>
 <?php 
-	include("dbaccess.php");
-	include("verifica_login.php");
+	require_once("dbaccess.php");
+	require_once("verifica_login.php");
 ?>
-<h2>Olá, <?php echo $_SESSION['login'];	?>	</h2> <br/>
+<h2>Olá, <?php echo $_SESSION['login_user'];	?>	</h2> <br/>
 
  	<form action="consulta.php" method="post">
-		<input type="text" name="NOME" placeholder="Nome" ><br/>
+		<input type="text" name="NOME" placeholder="Nome"> <br/>
 		<input type="submit" value="SUBMIT">
 	</form> 
 <br/>
@@ -24,6 +24,9 @@
 
 
 <?php
+	if (!isset($_POST['NOME'])) {
+		$_POST['NOME'] = "";
+	}
 	$NOME = $_POST['NOME'];
 
 	$sql = "SELECT * FROM conexao.pessoas WHERE NOME LIKE '%$NOME%';";
@@ -40,10 +43,10 @@
 	}*/
 
 	if ($result->num_rows > 0) {
-    	echo "<table border='1'><tr><th>ID</th><th>Nome</th><th>Idade</th><th>Incrito</th></tr>";
+    	echo "<table border='1'><tr><th>ID</th><th>Nome</th><th>Idade</th><th>Incrito</th><th>FOTO</th></tr>";
 	    // output data of each row
 	    while($row = $result->fetch_assoc()) {
-       	 echo "<tr><td>".$row["ID"]."</td>	<td>".$row["NOME"]." </td>	<td>".$row["IDADE"]." </td>	<td>".$row["DATA_INSERCAO"]." </td>	</tr>";
+       	 echo "<tr><td>".$row["ID"]."</td>	<td>".$row["NOME"]."</td>	<td>".$row["IDADE"]." </td>	<td>".$row["DATA_INSERCAO"]." </td>   <td><img src='imagens/".$row["FOTO"]."'/></td>	</tr>";
 	    }
     	echo "</table>";
 	} else {

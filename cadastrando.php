@@ -18,15 +18,16 @@
 </head>
 <body>
 <?php 
-	include("dbaccess.php");
-	include("verifica_login.php");
+	require_once("dbaccess.php");
+	require_once("verifica_login.php");
 ?>
-<h2>Olá, <?php echo $_SESSION['login'];	?>	</h2> <br/>
+<h2>Olá, <?php echo $_SESSION['login_user'];	?>	</h2> <br/>
 
- 	<form action="gravacadastro.php" method="post">
+ 	<form action="gravacadastro.php" method="post" enctype="multipart/form-data">
 		<input type="text" name="nome" placeholder="Nome" required><br/>
 		<input type="number" name="idade" placeholder="Idade" minlength="1" maxlength="3" min="0" max="120" required><br/>
-		<input type="submit" value="SUBMIT">
+		<input type="file" name="FOTO"/><br/><br/>
+		<input type="submit" name="cadastrar" value="Cadastrar">
 	</form> 
 
 </body>

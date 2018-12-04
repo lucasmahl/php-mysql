@@ -1,6 +1,6 @@
 <?php 
-	include("dbaccess.php");
-	include("verifica_login.php");
+	require_once("dbaccess.php");
+	require_once("verifica_login.php");
 ?>
 
 <?php

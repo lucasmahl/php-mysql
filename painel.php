@@ -1,6 +1,6 @@
 <?php
-include("dbaccess.php");
-include("verifica_login.php");
+require_once("dbaccess.php");
+require_once("verifica_login.php");
 ?>
 
  <!DOCTYPE html>
@@ -12,12 +12,24 @@ include("verifica_login.php");
  	<link rel="stylesheet" href="">
  </head>
  <body>
- 	<h2>Olá, <?php echo $_SESSION['login'];	?>	</h2> <br/>
+<?php
+	$login_user=$_SESSION['login_user'];
+	$password=$_SESSION['password'];
+	$sql = "SELECT nome_user FROM conexao.acesso WHERE login_user ='$login_user' AND password =md5('$password') ";
 
- 	<a href="cadastrando.php"><button>Cadastrar</button></a>
- 	<a href="consulta.php"><button>Consultar</button></a>
- 	<br/>
- 	<a href="logout.php"><button>Log Out</button></a>
+	//fetchAll = Retorna todas as linhas (registros) como um array
+	$nome = mysqli_query($conn, $sql);
+	$row = $nome->fetch_assoc(); 
 
+	echo "<h1>Olá, ".$row["nome_user"]."! </h1><br/>";
+ 	echo "
+ 		<a href='cadastrando.php'><button>Cadastrar</button></a>
+ 		<a href='consulta.php'><button>Consultar</button></a>
+ 		<br/>
+ 		<a href='logout.php'><button>Log Out</button></a>
+ 	";
+$conn->close();
+exit();
+?>
  </body>
  </html>
